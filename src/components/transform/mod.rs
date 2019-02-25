@@ -1,23 +1,23 @@
 use specs::prelude::*;
-use nalgebra::geometry::Transform3;
+use nalgebra::Matrix4;
 use std::ops::Deref;
 
-#[derive(Component)]
+#[derive(Component, Clone)]
 pub struct Transform {
-    pub inner: Transform3<f64>,
+    pub matrix: Matrix4<f64>,
 }
 
 impl Transform {
-    pub fn new(inner: Transform3<f64>) -> Self {
-        Self { inner }
+    pub fn new(matrix: Matrix4<f64>) -> Self {
+        Self { matrix }
     }
 }
 
 impl Deref for Transform {
-    type Target = Transform3<f64>;
+    type Target = Matrix4<f64>;
 
     fn deref(&self) -> &Self::Target {
-        &self.inner
+        &self.matrix
     }
 }
 
