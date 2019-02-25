@@ -5,16 +5,14 @@ mod components;
 mod systems;
 
 use specs::prelude::*;
-use components::Name;
-use systems::{SceneGenerator, HelloWorld};
+use components::*;
+use systems::*;
 
 fn main() {
     let mut world = World::new();
-
-    world.register::<Name>();
+    register_components(&mut world);
 
     SceneGenerator.run_now(&world.res);
-
     world.maintain();
 
     HelloWorld.run_now(&world.res);
