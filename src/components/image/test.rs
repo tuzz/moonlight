@@ -18,7 +18,7 @@ mod new {
         let resolution = Vector2::new(20, 10);
         let subject = Subject::new(resolution);
 
-        assert_eq!(subject.pixels[0], Pixel::zeros());
+        assert_eq!(subject.pixels[0], Pixel::zero());
     }
 }
 

@@ -1,5 +1,5 @@
 use specs::prelude::*;
-use nalgebra::base::{Vector2, Vector3};
+use cgmath::{Vector2, Vector3, Zero};
 
 type Pixel = Vector3<f64>;
 
@@ -12,7 +12,7 @@ pub struct Image {
 impl Image {
     pub fn new(resolution: Vector2<u32>) -> Self {
         let pixels = (0..resolution.x * resolution.y)
-            .map(|_| Pixel::zeros())
+            .map(|_| Pixel::zero())
             .collect();
 
         Self { resolution, pixels }

@@ -1,4 +1,4 @@
-use nalgebra::*;
+use cgmath::{Point3, Vector3};
 
 pub struct Ray {
     pub origin: Point3<f64>,

@@ -1,5 +1,5 @@
 use super::*;
-use nalgebra::*;
+use cgmath::Vector2;
 use std::f64::INFINITY;
 
 type Subject = ImageWriter;

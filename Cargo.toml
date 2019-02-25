@@ -5,7 +5,7 @@ authors = ["Chris Patuzzo <chris@patuzzo.co.uk>"]
 edition = "2018"
 
 [dependencies]
-nalgebra = "0.17.2"
+cgmath = "*"
 specs = "0.14.3"
 specs-derive = "0.4.0"
 png = "0.14.0"

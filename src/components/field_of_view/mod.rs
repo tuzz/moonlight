@@ -1,5 +1,5 @@
 use specs::prelude::*;
-use nalgebra::base::Vector2;
+use cgmath::Vector2;
 
 #[derive(Component)]
 pub struct FieldOfView {

@@ -1,5 +1,5 @@
 use specs::prelude::*;
-use nalgebra::Matrix4;
+use cgmath::Matrix4;
 use std::ops::Deref;
 
 #[derive(Component, Clone)]
