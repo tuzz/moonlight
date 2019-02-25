@@ -1,7 +1,10 @@
+#[macro_use]
+extern crate specs_derive;
+
 mod components;
 mod systems;
 
-use specs::{World, Builder, RunNow};
+use specs::prelude::*;
 use components::Name;
 use systems::HelloWorld;
 

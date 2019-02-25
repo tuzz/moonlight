@@ -7,3 +7,4 @@ edition = "2018"
 [dependencies]
 nalgebra = "0.17.2"
 specs = "0.14.3"
+specs-derive = "0.4.0"

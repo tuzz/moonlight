@@ -1,4 +1,4 @@
-use specs::{System, ReadStorage, Join};
+use specs::prelude::*;
 use crate::components::Name;
 
 pub struct HelloWorld;

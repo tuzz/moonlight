@@ -1,9 +1,6 @@
-use specs::{Component, VecStorage};
+use specs::prelude::*;
 
+#[derive(Component)]
 pub struct Name {
     pub s: String,
-}
-
-impl Component for Name {
-    type Storage = VecStorage<Self>;
 }
