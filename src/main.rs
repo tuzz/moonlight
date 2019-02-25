@@ -6,18 +6,16 @@ mod systems;
 
 use specs::prelude::*;
 use components::Name;
-use systems::HelloWorld;
+use systems::{SceneGenerator, HelloWorld};
 
 fn main() {
     let mut world = World::new();
 
     world.register::<Name>();
 
-    world.create_entity()
-        .with(Name { s: "Chris".to_string() })
-        .build();
-
-    HelloWorld.run_now(&world.res);
+    SceneGenerator.run_now(&world.res);
 
     world.maintain();
+
+    HelloWorld.run_now(&world.res);
 }
