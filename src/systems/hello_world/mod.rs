@@ -8,7 +8,7 @@ impl<'a> System<'a> for HelloWorld {
 
     fn run(&mut self, name: Self::SystemData) {
         for name in name.join() {
-            println!("Hello {}", name.s);
+            println!("Hello {}", name.string);
         }
     }
 }

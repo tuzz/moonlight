@@ -1,6 +1,12 @@
 use specs::prelude::*;
 
-#[derive(Component)]
+#[derive(Component, Debug, Clone, PartialEq)]
 pub struct Name {
-    pub s: String,
+    pub string: String,
+}
+
+impl Name {
+    pub fn new(s: &str) -> Self {
+        Self { string: s.to_string() }
+    }
 }
