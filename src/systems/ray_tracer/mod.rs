@@ -1,3 +1,4 @@
+mod ray;
 use specs::prelude::*;
 use nalgebra::*;
 use crate::components::{Camera, Transform, Image};
