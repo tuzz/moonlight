@@ -13,8 +13,10 @@ fn main() {
     register_components(&mut world);
 
     SceneGenerator.run_now(&world.res);
+
     world.maintain();
 
     HelloWorld.run_now(&world.res);
+    RayTracer.run_now(&world.res);
     ImageWriter.run_now(&world.res);
 }
