@@ -5,8 +5,8 @@ type Pixel = Vector3<f64>;
 
 #[derive(Component)]
 pub struct Image {
-    resolution: Vector2<u32>,
-    pixels: Vec<Pixel>,
+    pub resolution: Vector2<u32>,
+    pub pixels: Vec<Pixel>,
 }
 
 impl Image {

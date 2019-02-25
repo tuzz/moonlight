@@ -16,4 +16,5 @@ fn main() {
     world.maintain();
 
     HelloWorld.run_now(&world.res);
+    ImageWriter.run_now(&world.res);
 }
