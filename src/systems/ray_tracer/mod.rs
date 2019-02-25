@@ -1,7 +1,10 @@
 mod ray;
+mod ray_generator;
+
 use specs::prelude::*;
 use cgmath::{Vector2, Vector3};
-use crate::components::{Camera, Transform, Image};
+use crate::components::{Camera, Transform, FieldOfView, Image};
+use ray_generator::RayGenerator;
 
 pub struct RayTracer;
 
@@ -9,11 +12,13 @@ impl<'a> System<'a> for RayTracer {
     type SystemData = (
         ReadStorage<'a, Camera>,
         ReadStorage<'a, Transform>,
+        ReadStorage<'a, FieldOfView>,
         WriteStorage<'a, Image>,
     );
 
-    fn run(&mut self, (camera, transform, mut image): Self::SystemData) {
-        for (_, _, image) in (&camera, &transform, &mut image).join() {
+    fn run(&mut self, (camera, transform, fov, mut image): Self::SystemData) {
+        for (_, transform, fov, image) in (&camera, &transform, &fov, &mut image).join() {
+            let _ray_generator = RayGenerator::new(transform, fov, image);
 
             // For now, just try writing to the camera image data.
             for i in 0..100 {
