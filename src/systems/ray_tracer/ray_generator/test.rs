@@ -32,6 +32,33 @@ mod new {
         assert_approx_eq!(subject.left_to_right.x, 2.0);
         assert_approx_eq!(subject.top_to_bottom.y, -2.0);
     }
+
+    #[test]
+    fn it_sets_a_vector_from_the_eye_to_the_center_of_the_image_plane() {
+        let subject = subject();
+
+        assert_eq!(subject.forward, Vector3::new(0.0, 0.0, 1.0));
+    }
+}
+
+mod image_plane_vector {
+    use super::*;
+
+    #[test]
+    fn it_returns_a_vector_from_the_eye_to_the_pixel_on_the_image_plane() {
+        let subject = subject();
+
+        let result = subject.image_plane_vector(Vector2::new(0.5, 0.5));
+        assert_eq!(result, Vector3::new(0.0, 0.0, 1.0));
+
+        let result = subject.image_plane_vector(Vector2::new(0.1, 0.2));
+        assert_approx_eq!(result.x, -0.8);
+        assert_approx_eq!(result.y, 0.6);
+
+        let result = subject.image_plane_vector(Vector2::new(0.4, 0.6));
+        assert_approx_eq!(result.x, -0.2);
+        assert_approx_eq!(result.y, -0.2);
+    }
 }
 
 mod pixel_ratio {
