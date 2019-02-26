@@ -32,4 +32,16 @@ mod run {
         assert_eq!(t.has::<Transform>(sphere), true);
         assert_eq!(t.has::<Material>(sphere), true);
     }
+
+    #[test]
+    fn it_builds_a_light() {
+        let mut t = TestHelper::new();
+
+        t.run(SceneGenerator);
+
+        let sphere = t.entity("light-1");
+
+        assert_eq!(t.has::<Light>(sphere), true);
+        assert_eq!(t.has::<Transform>(sphere), true);
+    }
 }

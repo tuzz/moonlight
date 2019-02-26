@@ -22,6 +22,12 @@ impl<'a> System<'a> for SceneGenerator {
         lazy.insert(sphere, Transform::new(Matrix4::from_translation(Vector3::new(0.0, 0.0, 5.0))));
         lazy.insert(sphere, Material::new(Vector3::new(0.0, 0.0, 1.0)));
         lazy.insert(sphere, Name::new("sphere-1"));
+
+        let light = entities.create();
+
+        lazy.insert(light, Light::new(1.0));
+        lazy.insert(light, Transform::new(Matrix4::identity()));
+        lazy.insert(light, Name::new("light-1"));
     }
 }
 
