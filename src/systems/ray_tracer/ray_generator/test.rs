@@ -39,6 +39,54 @@ mod new {
 
         assert_eq!(subject.forward, Vector3::new(0.0, 0.0, 1.0));
     }
+
+    #[test]
+    fn it_sets_the_origin_of_the_camera() {
+        let subject = subject();
+
+        assert_eq!(subject.origin, Point3::new(0.0, 0.0, 0.0));
+    }
+}
+
+mod generate_ray {
+    use super::*;
+
+    #[test]
+    fn it_generates_the_expected_ray_that_goes_through_the_top_left_pixel() {
+        let subject = subject();
+
+        let ray = subject.generate_ray(0, 0);
+        assert_eq!(ray.origin, Point3::new(0.0, 0.0, 0.0));
+
+        assert_approx_eq!(ray.direction.x, -0.95);
+        assert_approx_eq!(ray.direction.y, 0.9);
+        assert_approx_eq!(ray.direction.z, 1.0);
+    }
+
+    #[test]
+    fn it_generates_the_expected_ray_for_another_arbitrary_pixel() {
+        let subject = subject();
+
+        let ray = subject.generate_ray(13, 5);
+        assert_eq!(ray.origin, Point3::new(0.0, 0.0, 0.0));
+
+        assert_approx_eq!(ray.direction.x, 0.35);
+        assert_approx_eq!(ray.direction.y, -0.1);
+        assert_approx_eq!(ray.direction.z, 1.0);
+    }
+}
+
+mod pixel_ratio {
+    use super::*;
+
+    #[test]
+    fn it_returns_the_ratio_of_the_pixel_coordinate_to_the_image_resolution() {
+        let subject = subject();
+
+        assert_eq!(subject.pixel_ratio(0, 0), Vector2::new(0.025, 0.05));
+        assert_eq!(subject.pixel_ratio(2, 4), Vector2::new(0.125, 0.45));
+        assert_eq!(subject.pixel_ratio(17, 7), Vector2::new(0.875, 0.75));
+    }
 }
 
 mod image_plane_vector {
@@ -58,19 +106,6 @@ mod image_plane_vector {
         let result = subject.image_plane_vector(Vector2::new(0.4, 0.6));
         assert_approx_eq!(result.x, -0.2);
         assert_approx_eq!(result.y, -0.2);
-    }
-}
-
-mod pixel_ratio {
-    use super::*;
-
-    #[test]
-    fn it_returns_the_ratio_of_the_pixel_coordinate_to_the_image_resolution() {
-        let subject = subject();
-
-        assert_eq!(subject.pixel_ratio(0, 0), Vector2::new(0.025, 0.05));
-        assert_eq!(subject.pixel_ratio(2, 4), Vector2::new(0.125, 0.45));
-        assert_eq!(subject.pixel_ratio(17, 7), Vector2::new(0.875, 0.75));
     }
 }
 
