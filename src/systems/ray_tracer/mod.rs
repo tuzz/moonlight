@@ -1,8 +1,9 @@
 mod ray;
 mod ray_generator;
+mod intersection;
 
 use specs::prelude::*;
-use crate::components::{Camera, Transform, FieldOfView, Image};
+use crate::components::*;
 use ray_generator::RayGenerator;
 
 pub struct RayTracer;
