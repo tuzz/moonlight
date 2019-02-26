@@ -1,10 +1,12 @@
 mod ray;
 mod ray_generator;
 mod intersection;
+mod intersection_checker;
 
 use specs::prelude::*;
 use crate::components::*;
 use ray_generator::RayGenerator;
+use intersection_checker::IntersectionChecker;
 
 pub struct RayTracer;
 

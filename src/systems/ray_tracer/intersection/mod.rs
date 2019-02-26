@@ -3,9 +3,9 @@ use std::cmp::{PartialOrd, Ord, Ordering};
 
 #[derive(Debug, Clone, PartialEq)]
 pub struct Intersection {
-    ray_t: f64,
-    origin: Point3<f64>,
-    normal: Vector3<f64>,
+    pub ray_t: f64,
+    pub origin: Point3<f64>,
+    pub normal: Vector3<f64>,
 }
 
 impl Intersection {
