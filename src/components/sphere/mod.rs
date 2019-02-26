@@ -2,9 +2,9 @@ use specs::prelude::*;
 
 #[derive(Component, Default)]
 #[storage(NullStorage)]
-pub struct Camera;
+pub struct Sphere;
 
-impl Camera {
+impl Sphere {
     pub fn new() -> Self {
         Self { }
     }

@@ -7,7 +7,7 @@ mod run {
     use super::*;
 
     #[test]
-    fn it_builds_a_camera_with_a_transform_and_an_image() {
+    fn it_builds_a_camera() {
         let mut t = TestHelper::new();
 
         t.run(SceneGenerator);
@@ -18,5 +18,17 @@ mod run {
         assert_eq!(t.has::<Transform>(camera), true);
         assert_eq!(t.has::<FieldOfView>(camera), true);
         assert_eq!(t.has::<Image>(camera), true);
+    }
+
+    #[test]
+    fn it_builds_a_sphere() {
+        let mut t = TestHelper::new();
+
+        t.run(SceneGenerator);
+
+        let sphere = t.entity("sphere-1");
+
+        assert_eq!(t.has::<Sphere>(sphere), true);
+        assert_eq!(t.has::<Transform>(sphere), true);
     }
 }
