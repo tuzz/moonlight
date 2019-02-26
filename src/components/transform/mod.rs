@@ -1,15 +1,18 @@
 use specs::prelude::*;
-use cgmath::Matrix4;
+use cgmath::{Matrix4, SquareMatrix};
 use std::ops::Deref;
 
 #[derive(Component, Clone)]
 pub struct Transform {
     pub matrix: Matrix4<f64>,
+    pub inverse: Matrix4<f64>,
 }
 
 impl Transform {
     pub fn new(matrix: Matrix4<f64>) -> Self {
-        Self { matrix }
+        let inverse = matrix.invert().expect("Failed to invert matrix");
+
+        Self { matrix, inverse }
     }
 }
 
