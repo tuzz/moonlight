@@ -31,6 +31,20 @@ impl RayGenerator {
         Self { matrix, degrees, resolution, forward, origin, left_to_right, top_to_bottom }
     }
 
+    pub fn generate<'a>(&'a self) -> impl Iterator<Item=(Vector2<u32>, Ray)> + 'a {
+        let width = self.resolution.x;
+        let height = self.resolution.y;
+
+        (0..height).flat_map(move |y| {
+            (0..width).map(move |x| {
+                let coordinate = Vector2::new(x, y);
+                let ray = self.generate_ray(x, y);
+
+                (coordinate, ray)
+            })
+        })
+    }
+
     fn generate_ray(&self, x: u32, y: u32) -> Ray {
         let ratio = self.pixel_ratio(x, y);
         let vector = self.image_plane_vector(ratio);
