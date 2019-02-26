@@ -6,7 +6,7 @@ mod illuminator;
 
 use specs::prelude::*;
 use crate::components::*;
-use cgmath::prelude::InnerSpace;
+use cgmath::{Vector3, prelude::InnerSpace};
 use ray_generator::RayGenerator;
 use intersection_checker::IntersectionChecker;
 use illuminator::Illuminator;
@@ -38,8 +38,10 @@ impl<'a> System<'a> for RayTracer {
                     .filter_map(|(option, m)| option.map(|i| (i, m)))
                     .min_by(|(a, _), (b, _)| a.cmp(&b));
 
-                // Continue if the ray doesn't intersect:
+                // Set the background and continue if the ray doesn't intersect:
                 if closest.is_none() {
+                    image.set(&coordinate, Vector3::new(0.2, 0.2, 0.2));
+
                     continue;
                 }
 
