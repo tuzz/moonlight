@@ -1,4 +1,4 @@
-use cgmath::{Point3, prelude::InnerSpace];
+use cgmath::{Point3, Vector3, prelude::InnerSpace];
 use std::marker::PhantomData;
 use super::intersection::Intersection;
 use super::ray::Ray;
@@ -46,6 +46,9 @@ impl IntersectionChecker<Sphere> {
         let origin = ray.at(ray_t);
         let normal = origin - Point3::new(0.0, 0.0, 0.0);
 
+        let origin = Self::point_to_world_space(&origin, transform);
+        let normal = Self::vector_to_world_space(&normal, transform);
+
         Some(Intersection::new(ray_t, origin, normal))
     }
 
@@ -56,6 +59,20 @@ impl IntersectionChecker<Sphere> {
         let direction = world_to_object * ray.direction.extend(0.0);
 
         Ray::new(Point3::from_homogeneous(origin), direction.truncate())
+    }
+
+    fn vector_to_world_space(vector: &Vector3<f64>, transform: &Transform) -> Vector3<f64> {
+        let object_to_world = transform.matrix;
+        let vector4 = object_to_world * vector.extend(0.0);
+
+        vector4.truncate()
+    }
+
+    fn point_to_world_space(point: &Point3<f64>, transform: &Transform) -> Point3<f64> {
+        let object_to_world = transform.matrix;
+        let point4 = object_to_world * point.to_homogeneous();
+
+        Point3::from_homogeneous(point4)
     }
 }
 

@@ -25,7 +25,7 @@ impl<'a> System<'a> for SceneGenerator {
 
         let light = entities.create();
 
-        lazy.insert(light, Light::new(1.0));
+        lazy.insert(light, Light::new(10.0));
         lazy.insert(light, Transform::new(Matrix4::identity()));
         lazy.insert(light, Name::new("light-1"));
     }

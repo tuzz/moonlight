@@ -6,6 +6,7 @@ mod illuminator;
 
 use specs::prelude::*;
 use crate::components::*;
+use cgmath::prelude::InnerSpace;
 use ray_generator::RayGenerator;
 use intersection_checker::IntersectionChecker;
 use illuminator::Illuminator;
@@ -21,9 +22,10 @@ impl<'a> System<'a> for RayTracer {
 
         ReadStorage<'a, Sphere>,
         ReadStorage<'a, Material>,
+        ReadStorage<'a, Light>,
     );
 
-    fn run(&mut self, (cameras, transforms, fovs, mut images, spheres, materials): Self::SystemData) {
+    fn run(&mut self, (cameras, transforms, fovs, mut images, spheres, materials, lights): Self::SystemData) {
         for (_, transform, fov, image) in (&cameras, &transforms, &fovs, &mut images).join() {
             let ray_generator = RayGenerator::new(transform, fov, image);
 
@@ -43,8 +45,19 @@ impl<'a> System<'a> for RayTracer {
 
                 let (intersection, material) = closest.unwrap();
 
-                // Temporarily set the color based on the surface normal:
-                image.set(&coordinate, intersection.normal);
+                let total_radiance = (&lights, &transforms).join().map(|(light, transform)| {
+                    // Get the amount of light falling on the point of intersection.
+                    let (radiance, direction) = Illuminator::radiance_and_direction(
+                        &intersection, light, transform
+                    );
+
+                    // Calculate the proportion of light falling on the tilted surface.
+                    let cosine = direction.dot(intersection.normal).abs();
+
+                    radiance * cosine
+                }).sum::<f64>();
+
+                image.set(&coordinate, material.color * total_radiance);
             }
         }
     }
