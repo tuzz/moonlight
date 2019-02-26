@@ -1,6 +1,6 @@
 use specs::prelude::*;
 use cgmath::{Vector2, Vector3, Matrix4, SquareMatrix};
-use crate::components::{Camera, Transform, FieldOfView, Image, Name, Sphere};
+use crate::components::*;
 
 pub struct SceneGenerator;
 
@@ -20,6 +20,7 @@ impl<'a> System<'a> for SceneGenerator {
 
         lazy.insert(sphere, Sphere::new());
         lazy.insert(sphere, Transform::new(Matrix4::from_translation(Vector3::new(0.0, 0.0, 5.0))));
+        lazy.insert(sphere, Material::new(Vector3::new(0.0, 0.0, 1.0)));
         lazy.insert(sphere, Name::new("sphere-1"));
     }
 }

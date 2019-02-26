@@ -30,5 +30,6 @@ mod run {
 
         assert_eq!(t.has::<Sphere>(sphere), true);
         assert_eq!(t.has::<Transform>(sphere), true);
+        assert_eq!(t.has::<Material>(sphere), true);
     }
 }
