@@ -8,6 +8,7 @@ use specs::prelude::*;
 use crate::components::*;
 use cgmath::{Vector3, prelude::InnerSpace};
 use ray_generator::RayGenerator;
+use ray::Ray;
 use intersection_checker::IntersectionChecker;
 use illuminator::Illuminator;
 
@@ -40,7 +41,7 @@ impl<'a> System<'a> for RayTracer {
 
                 // Set the background and continue if the ray doesn't intersect:
                 if closest.is_none() {
-                    image.set(&coordinate, Vector3::new(0.2, 0.2, 0.2));
+                    image.set(&coordinate, Vector3::new(0.1, 0.1, 0.1));
 
                     continue;
                 }
@@ -52,6 +53,18 @@ impl<'a> System<'a> for RayTracer {
                     let (radiance, direction) = Illuminator::radiance_and_direction(
                         &intersection, light, transform
                     );
+
+                    // Build a ray from the point of intersection to the light.
+                    let shadow_ray = Ray::new(intersection.origin, direction);
+
+                    // Check if the shadow ray intersects something
+                    for (_, t, _) in (&spheres, &transforms, &materials).join() {
+                        if let Some(_i) = IntersectionChecker::<Sphere>::intersection(&shadow_ray, t) {
+
+                            // TODO: check if the shape is behind the light
+                            return 0.0;
+                        }
+                    }
 
                     // Calculate the proportion of light falling on the tilted surface.
                     let cosine = direction.dot(intersection.normal).abs();

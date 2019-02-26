@@ -1,5 +1,5 @@
 use specs::prelude::*;
-use cgmath::{Vector2, Vector3, Matrix4, SquareMatrix};
+use cgmath::{Vector2, Vector3, Matrix4};
 use crate::components::*;
 
 pub struct SceneGenerator;
@@ -10,9 +10,11 @@ impl<'a> System<'a> for SceneGenerator {
     fn run(&mut self, (entities, lazy): Self::SystemData) {
         let camera = entities.create();
         lazy.insert(camera, Camera::new());
-        lazy.insert(camera, Transform::new(Matrix4::identity()));
+        lazy.insert(camera, Self::transform(1.0, Vector3::new(0.0, 0.0, -20.0)));
         lazy.insert(camera, FieldOfView::new(Vector2::new(86.0, 55.36)));
         lazy.insert(camera, Image::new(Vector2::new(1920, 1080)));
+        lazy.insert(camera, Velocity::new(Vector3::new(0.0, 0.0, 0.05)));
+        lazy.insert(camera, Frame::new(1));
         lazy.insert(camera, Name::new("camera-1"));
 
         let sphere1 = entities.create();
@@ -76,7 +78,7 @@ impl<'a> System<'a> for SceneGenerator {
         let light3 = entities.create();
         lazy.insert(light3, Light::new(200.0));
         lazy.insert(light3, Self::transform(1.0, Vector3::new(-5.0, 8.0, 30.0)));
-        lazy.insert(light3, Name::new("light-2"));
+        lazy.insert(light3, Name::new("light-3"));
     }
 }
 

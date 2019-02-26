@@ -18,6 +18,10 @@ fn main() {
     SceneGenerator.run_now(&world.res);
     world.maintain();
 
-    RayTracer.run_now(&world.res);
-    ImageWriter.run_now(&world.res);
+    for _ in 0..720 {
+        RayTracer.run_now(&world.res);
+        ImageWriter.run_now(&world.res);
+        Physics.run_now(&world.res);
+        FrameCounter.run_now(&world.res);
+    }
 }

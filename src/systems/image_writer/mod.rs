@@ -1,21 +1,26 @@
 use specs::prelude::*;
 use std::{fs::File, io::BufWriter, iter::once};
 use png::{Encoder, HasParameters};
-use crate::components::{Image, Name};
+use crate::components::{Image, Name, Frame};
 
 pub struct ImageWriter;
 
 impl<'a> System<'a> for ImageWriter {
-    type SystemData = (ReadStorage<'a, Image>, ReadStorage<'a, Name>);
+    type SystemData = (
+        ReadStorage<'a, Image>,
+        ReadStorage<'a, Name>,
+        ReadStorage<'a, Frame>,
+    );
 
-    fn run(&mut self, (image, name): Self::SystemData) {
-        (&image, &name).join().for_each(Self::write);
+    fn run(&mut self, (image, name, frame): Self::SystemData) {
+        (&image, &name, &frame).join().for_each(Self::write);
     }
 }
 
 impl ImageWriter {
-    fn write((image, name): (&Image, &Name)) {
-        let filename = name.string.clone() + ".png";
+    fn write((image, name, frame): (&Image, &Name, &Frame)) {
+        let suffix = format!("-{:04}.png", frame.number);
+        let filename = name.string.clone() + &suffix;
 
         let file = File::create(filename).expect("failed to create image file");
         let buffer = BufWriter::new(file);

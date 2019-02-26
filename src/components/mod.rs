@@ -6,6 +6,8 @@ mod camera;
 mod sphere;
 mod material;
 mod light;
+mod velocity;
+mod frame;
 
 pub use name::Name;
 pub use transform::Transform;
@@ -15,6 +17,8 @@ pub use camera::Camera;
 pub use sphere::Sphere;
 pub use material::Material;
 pub use light::Light;
+pub use velocity::Velocity;
+pub use frame::Frame;
 
 use specs::World;
 
@@ -27,4 +31,6 @@ pub fn register_components(world: &mut World) {
     world.register::<Sphere>();
     world.register::<Material>();
     world.register::<Light>();
+    world.register::<Velocity>();
+    world.register::<Frame>();
 }
