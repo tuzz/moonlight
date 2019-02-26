@@ -27,3 +27,22 @@ mod new {
         assert_eq!(subject.normal, Vector3::new(1.0, 0.0, 0.0));
     }
 }
+
+mod ord {
+    use super::*;
+
+    #[test]
+    fn it_orders_intersections_by_their_ray_t_parameters() {
+        let origin = Point3::new(0.1, 0.2, 0.3);
+
+        let a = Subject::new(2.0, origin, Vector3::new(1.0, 0.0, 0.0));
+        let b = Subject::new(1.0, origin, Vector3::new(1.0, 0.0, 0.0));
+        let c = Subject::new(3.0, origin, Vector3::new(1.0, 0.0, 0.0));
+
+        let mut vec = vec![a.clone(), b.clone(), c.clone()];
+
+        vec.sort();
+
+        assert_eq!(vec, &[b, a, c]);
+    }
+}
