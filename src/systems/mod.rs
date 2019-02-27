@@ -1,5 +1,5 @@
 mod scene_generator;
-mod ray_tracer;
+pub mod ray_tracer;
 mod image_writer;
 mod physics;
 mod frame_counter;

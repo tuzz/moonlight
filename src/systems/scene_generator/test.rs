@@ -28,7 +28,7 @@ mod run {
 
         let sphere = t.entity("sphere-1");
 
-        assert_eq!(t.has::<Sphere>(sphere), true);
+        assert_eq!(t.has::<Shape>(sphere), true);
         assert_eq!(t.has::<Transform>(sphere), true);
         assert_eq!(t.has::<Material>(sphere), true);
     }

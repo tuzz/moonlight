@@ -2,7 +2,7 @@ use cgmath::{Point3, Vector3, prelude::InnerSpace];
 use std::marker::PhantomData;
 use super::intersection::Intersection;
 use super::ray::Ray;
-use crate::components::{Sphere, Transform};
+use crate::components::{Shape, Transform};
 
 pub struct IntersectionChecker<T> {
     _t: PhantomData<T>,
@@ -10,7 +10,7 @@ pub struct IntersectionChecker<T> {
 
 const EPSILON: f64 = 0.0000000001;
 
-impl IntersectionChecker<Sphere> {
+impl IntersectionChecker<Shape> {
     pub fn intersection(ray: &Ray, transform: &Transform) -> Option<Intersection> {
         let ray = Self::to_object_space(ray, transform);
         let radius = 1.0;
